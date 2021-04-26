@@ -1,8 +1,17 @@
-<?php 
-include('db.php');
-
+<?php include('db.php');
 session_start();
+
+$em=$_SESSION['useremail'];
+$q="select * from userRegister where email='$em';";
+
+$query=mysqli_query($conn,$q) or die('query is not executed' .mysqli_error($conn));
+
+
+$row=mysqli_fetch_array($query);
+
 ?>
+
+
 
 <!doctype html>
 <html lang="en">
@@ -14,55 +23,27 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>login</title>
+    <title>Register</title>
   </head>
   <body>
 
-    <?php include('navbar1.php');?>
-    <h3 class="text-center mt-2">Login Here</h3>
+    <?php include('navbar2.php');?>
+    <h3 class="text-center mt-2">Edit profile</h3>
     <div class="container">
     <form method="POST">
+      Enter name: <input type="text" class="form-control" name="uname" value="<?php echo $row['name'];?>">
+      <br><br>
+      Enter email:<input type="text" class="form-control" name="email" value="<?php echo $row['email'];?>" readonly>
+      <br><br>
+      Enter password:<input type="password" class="form-control" name="psw" value="<?php echo $row['password'];?>">
+      <br><br>
      
-      Enter email:<input type="text" class="form-control" name="email">
-      <br><br>
-      Enter password:<input type="password" class="form-control" name="psw">
-      <br><br>
-      <input type="submit" value="login" name="btn" class="btn btn-primary">
+   
+      <input type="submit" value="Register" name="btn" class="btn btn-primary">
     </form>
-
-    <?php
-        if(isset($_POST['btn']))
-        {
-          $e=$_POST['email'];
-          $p=md5($_POST['psw']);
-
-
-          $q="select * from userRegister where email='$e' and password='$p';";
-
-          $query=mysqli_query($conn,$q) or die("query is not executed ".mysqli_error($conn));
-
-            if(mysqli_num_rows($query)==1)
-            {
-              $row=mysqli_fetch_array($query);
-
-              // echo $row['name'];
-                $_SESSION['user']=$row['name'];
-                $_SESSION['useremail']=$row['email'];
-                header('location:profile.php');
-
-            }
-            else
-            {
-              echo "no records found";
-            }
-
-        }
-
-
-    ?>
-
   </div>
 
+  
 
 
 

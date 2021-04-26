@@ -48,7 +48,8 @@
 
           if(mysqli_affected_rows($conn)>0)
           {
-            echo "<script>alert('Register Succesfully');</script>";
+            echo "<script>alert('Register Succesfully');
+            window.location.href='login.php';</script>";
           }
           else
           {

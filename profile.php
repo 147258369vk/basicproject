@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if($_SESSION['user']=="")
+{
+  header('location:login.php');
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -14,7 +24,7 @@
 
     <?php include('navbar2.php');?>
 
-    <h1>User Profile</h1>
+ <h4>Welcome <?php echo $_SESSION['user'];?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
