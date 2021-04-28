@@ -1,23 +1,4 @@
-<?php include('db.php');
-session_start();
-
-
-if($_SESSION['user']=="")
-{
-  header('location:login.php');
-}
-
-$em=$_SESSION['useremail'];
-$q="select * from userRegister where email='$em';";
-
-$query=mysqli_query($conn,$q) or die('query is not executed' .mysqli_error($conn));
-
-
-$row=mysqli_fetch_array($query);
-
-?>
-
-
+<?php include('db.php');?>
 
 <!doctype html>
 <html lang="en">
@@ -33,23 +14,56 @@ $row=mysqli_fetch_array($query);
   </head>
   <body>
 
-    <?php include('navbar2.php');?>
-    <h3 class="text-center mt-2">Edit profile</h3>
+    <?php include('navbar1.php');?>
+    <h3 class="text-center mt-2">Register yourself</h3>
     <div class="container">
     <form method="POST">
-      Enter name: <input type="text" class="form-control" name="uname" value="<?php echo $row['name'];?>">
+      Enter name: <input type="text" class="form-control" name="uname">
       <br><br>
-      Enter email:<input type="text" class="form-control" name="email" value="<?php echo $row['email'];?>" readonly>
+      Enter email:<input type="text" class="form-control" name="email">
       <br><br>
-      Enter password:<input type="password" class="form-control" name="psw" value="<?php echo $row['password'];?>">
+      Enter password:<input type="password" class="form-control" name="psw">
       <br><br>
-     
-   
+      Enter confirm-password:<input type="password" class="form-control" name="confirmpsw">
+      <br><br>
       <input type="submit" value="Register" name="btn" class="btn btn-primary">
     </form>
   </div>
 
-  
+  <?php
+    if(isset($_POST['btn']))
+    {
+      $nm=$_POST['uname'];
+      $em=$_POST['email'];
+      $p=$_POST['psw'];
+      $cp=$_POST['confirmpsw'];
+
+        if($p==$cp)
+        {
+          $ps=md5($p);
+
+          $q="insert into userRegister(name,email,password)values('$nm','$em','$ps');";
+
+          $query=mysqli_query($conn,$q) or die("Error in executing error".mysqli_error($conn));
+
+          if(mysqli_affected_rows($conn)>0)
+          {
+            echo "<script>alert('Register Succesfully');
+            window.location.href='login.php';</script>";
+          }
+          else
+          {
+            echo "<Script>alert('Error in registering');</script>";
+          }
+        }
+        else
+        {
+          echo "<script>alert('password and confirm password does not match');</script>";
+        }
+    }
+
+  ?>
+
 
 
 
