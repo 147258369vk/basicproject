@@ -1,10 +1,30 @@
 <?php
+include('db.php');
+
 session_start();
 
 if($_SESSION['user']=="")
 {
   header('location:login.php');
 }
+
+
+ ?>
+<?php
+    //to get the user id
+
+  $email=$_SESSION['useremail'];
+
+    $qid="select id from userRegister where email='$email';";
+
+    $queryid=mysqli_query($conn,$qid);
+
+    $row=mysqli_fetch_array($queryid);
+
+    $userid=$row['id'];
+
+
+
 
 ?>
 
@@ -25,6 +45,66 @@ if($_SESSION['user']=="")
     <?php include('navbar2.php');?>
 
  <h4>Welcome <?php echo $_SESSION['user'];?>
+
+ <br><br>
+ <div class="container">
+    <div class="row">
+
+  <?php
+    $q="select * from product;";
+
+    $query=mysqli_query($conn,$q) or die("query is not executed");
+
+    if(mysqli_num_rows($query)>0)
+    {
+      while($row=mysqli_fetch_array($query))
+      {
+        ?>
+    
+
+        <div class="col-md-4">
+
+               <div class="card" style="width: 18rem;">
+  <img src="<?php echo $row['productimage'];?>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><?php echo $row['pname'];?></h5>
+    <p class="card-text">Rs. <?php echo $row['price'];?>
+      <br>
+      Quantity: <?php echo $row['qty'];?>
+    </p>
+    <a href="getOrder.php?uid=<?php echo $userid;?>&prod_id=<?php echo $row['pid'];?>" class="btn btn-primary">Place an order</a>
+  </div>
+</div>
+
+        </div>
+
+        <!-- http://localhost/mycode/database/getOrder.php?uid=1&prod_id=1 -->
+
+    
+
+
+
+<?php
+      }
+    }
+    else
+    {
+      echo "No products are listed";
+    }
+
+
+
+  ?>
+
+
+
+
+   
+
+    </div>
+
+
+ </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -52,16 +52,17 @@
           <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
           <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
           <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="logout.php" class="linkedin"><i class="bx bxl-linkedin"></i></a>
         </div>
+
       </div>
 
       <nav class="nav-menu">
         <ul>
           <li class="active"><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li>
           <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
-          <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Product</span></a></li>
-          <li><a href="#portfolio"><i class="bx bx-book-content"></i> Portfolio</a></li>
+          <li><a href="product.php"><i class="bx bx-file-blank"></i> <span>Product</span></a></li>
+          <li><a href="productList.php"><i class="bx bx-book-content"></i> All Product</a></li>
           <li><a href="#services"><i class="bx bx-server"></i> Services</a></li>
           <li><a href="#contact"><i class="bx bx-envelope"></i> Contact</a></li>
 
@@ -78,6 +79,7 @@
 
 
   </main><!-- End #main -->
+  <br><br>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
